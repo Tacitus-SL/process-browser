@@ -12,20 +12,19 @@ A system utility that provides a comprehensive view of running processes on a co
       - CPU and memory usage are accurately displayed for each process.
       - Users can easily identify processes with high resource consumption.
 
-2. Process Management
-    - **Description:** Allows users to manage running processes by terminating unresponsive or problematic ones directly from the application interface.
+2. Text-Based User Interface (TUI)
+    - **Description:** Provides a terminal-based interface for interacting with processes, including navigation, viewing details, and performing actions.
     - **Acceptance criteria:**
-      - Users can select a process from the list and terminate it with a single action.
-      - The application requests confirmation before terminating a process.
-      - Terminated processes are removed from the list or clearly marked as stopped.
-      - Permission-related or system errors are handled gracefully and communicated to the user.
+      - Users can navigate through the process list using keyboard shortcuts.
+      - Users can select a process and perform actions such as viewing details or terminating it with confirmation.
+      - The interface updates in real time without requiring manual refresh.
 
 3. Process Sorting and Filtering
-    - **Description:** Provides sorting and filtering capabilities to help users analyze system performance more effectively.
+    - **Description:** Enables users to sort and filter processes to quickly find specific tasks or analyze resource usage patterns.
     - **Acceptance criteria:**
       - Users can sort processes by CPU usage, memory usage, process name, or PID.
       - Users can filter or search for processes by name.
-      - Sorting and filtering are applied instantly without restarting the application.
+      - Sorting and filtering can be applied dynamically within the TUI.
 
 ## Dependencies (example, change according to your project)
 
