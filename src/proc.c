@@ -3,7 +3,6 @@
  * @brief Implementation of process data collection from /proc filesystem.
  */
 
-#define _GNU_SOURCE
 #include "proc.h"
 #include <stdio.h>
 #include <stdlib.h>

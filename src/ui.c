@@ -183,35 +183,44 @@ void ui_draw(const proc_list_t *plist, int selected_idx, int start_index,
  * @param proc_name Name of the process to be killed.
  * @param pid PID of the process to be killed.
  */
-void ui_show_confirm_dialog(const char *proc_name, int pid) {
+void ui_show_confirm_dialog(const char *proc_name, int pid)
+{
 	int max_y, max_x;
 	getmaxyx(stdscr, max_y, max_x);
 
 	int height = 5;
-	int width = 50;
+	int width = 60;
 	int start_y = (max_y - height) / 2;
 	int start_x = (max_x - width) / 2;
 
-	if (has_colors()) {
+	if (start_x < 0)
+		start_x = 0;
+	if (start_y < 0)
+		start_y = 0;
+
+	if (has_colors())
 		attron(COLOR_PAIR(2) | A_BOLD);
-	}
 
-	/* Draw dialog box background */
+	/* Draw solid background block */
 	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			mvaddch(start_y + i, start_x + j, ' ');
-		}
+		move(start_y + i, start_x);
+		for (int j = 0; j < width; j++)
+			addch(' ');
 	}
 
-	/* Print dialog content */
+	/* Truncate name */
+	char safe_name[40];
+	snprintf(safe_name, sizeof(safe_name), "%s", proc_name);
+
+	/* Content */
 	mvprintw(start_y + 1, start_x + 2, "WARNING: Kill process?");
-	mvprintw(start_y + 2, start_x + 2, "%s (PID: %d)", proc_name, pid);
+	mvprintw(start_y + 2, start_x + 2, "%s (PID: %d)", safe_name, pid);
 	mvprintw(start_y + 3, start_x + 2,
-		 "Press [Y] to Confirm or [N] to Cancel");
+		 "Press [Y] to Confirm  or  [N] to Cancel");
 
-	if (has_colors()) {
+	if (has_colors())
 		attroff(COLOR_PAIR(2) | A_BOLD);
-	}
+
 	refresh();
 }
 
