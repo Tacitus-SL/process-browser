@@ -26,31 +26,110 @@ A system utility that provides a comprehensive view of running processes on a co
       - Users can filter or search for processes by name.
       - Sorting and filtering can be applied dynamically within the TUI.
 
-## Dependencies (example, change according to your project)
+## Code Style
 
-- GCC
-- Make
+This project follows the **K&R** code style.
 
-## Build Instructions (example, change according to your project)
+## Documentation
+
+All functions are documented using **Doxygen** docstring format.
+
+## Dependencies
+Build & Runtime:
+- **gcc** - GNU C Compiler
+- **make** - Build automation tool
+- **libncurses5-dev** / **libncursesw5-dev** - TUI library
+
+Testing:
+- **libcriterion-dev** - Unit testing framework
+- **valgrind** - Memory leak detection
+- **lcov** - Code coverage HTML reports
+
+## Build Instructions
 
 1. Clone the repository:
 ```bash
-git clone 
-cd project-name
+git clone https://github.com/programming-fundamentals-nup-2025/examproject2-Tacitus-SL
+cd examproject2-Tacitus-SL.git
 ```
 
-2. Build the project:
+2. Install dependencies:
+```bash
+make install_deps
+```
+
+3. Build the project:
 ```bash
 make
 ```
 
-3. Run tests:
+4. Run the process browser:
+```bash
+./pb
+```
+
+## Testing
+
+Run all tests:
 ```bash
 make test
 ```
 
-## Usage Examples (example, change according to your project)
+This command executes:
+- **Unit tests** (Criterion framework)
+- **Valgrind leak check** (ensures zero memory leaks)
+- **Smoke test** (verifies TUI launches without crashes)
+- **Coverage report** (generates HTML report in `coverage_report/`)
 
+View coverage report:
 ```bash
-./program_name [arguments]
+xdg-open coverage_report/index.html
+```
+
+## Usage
+
+### Keyboard Controls
+
+**Navigation:**
+- `↑` / `↓` - Move selection up/down
+- `q` - Quit application
+
+**Sorting:**
+- `p` - Sort by Process ID (PID)
+- `n` - Sort by process Name (alphabetical)
+- `m` - Sort by Memory usage (descending)
+- `c` - Sort by CPU usage (descending)
+
+**Actions:**
+- `/` - Enter search/filter mode
+- `ESC` - Clear filter (or exit search mode)
+- `k` - Kill selected process (shows confirmation)
+- `Y` / `N` - Confirm/Cancel kill operation
+
+
+## Installation
+
+Install to `/usr/local/bin`:
+```bash
+sudo make install
+```
+
+Uninstall:
+```bash
+sudo make uninstall
+```
+
+## Project Structure
+```
+.
+├── src/
+│   ├── main.c           # Entry point and main event loop
+│   ├── proc.c/proc.h    # Process data collection from /proc
+│   ├── sort.c/sort.h    # Sorting logic (PID, name, memory, CPU)
+│   └── ui.c/ui.h        # TUI interface (ncurses)
+├── tests/
+│   └── test.c           # Criterion unit tests
+├── Makefile             # Build system
+├── README.md
+└── .gitignore
 ```
