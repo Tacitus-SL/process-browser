@@ -1,12 +1,12 @@
-# --- Настройки ---
+# --- Settings ---
 CC = gcc
 CFLAGS = -Wall -Wextra -g -MMD -MP -D_GNU_SOURCE
 LDFLAGS = -lncurses
 
-# Флаги для покрытия кода
+# Coverage flags
 COV_FLAGS = --coverage
 
-# Библиотеки ТОЛЬКО для тестов
+# Test-only libraries
 TEST_LIBS = -lcriterion -lm
 
 TARGET = pb
@@ -15,19 +15,19 @@ TEST_TARGET = run_tests
 PREFIX = /usr/local
 BINDIR = $(PREFIX)/bin
 
-# Файлы
+# Source files
 SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
 
 TEST_SRC = tests/test.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
 
-# Убираем main.o из сборки тестов
+# Exclude main.o from test build
 OBJ_NO_MAIN = $(filter-out src/main.o, $(OBJ))
 
 DEPS = $(OBJ:.o=.d) $(TEST_OBJ:.o=.d)
 
-# --- Цели ---
+# --- Targets ---
 
 all: $(TARGET)
 
@@ -48,16 +48,14 @@ clean:
 	rm -f *.gcno *.gcda *.gcov src/*.gcno src/*.gcda tests/*.gcno tests/*.gcda
 	rm -rf coverage_report coverage.info
 
-# === ГЛАВНАЯ ЦЕЛЬ: TEST ===
+# Main test target
 test: install_deps_test $(TEST_TARGET)
 	@echo "\n>>> 1. UNIT TESTS <<<"
 	@rm -f *.gcda src/*.gcda tests/*.gcda
 	@./$(TEST_TARGET) --short
-
 	@echo "\n>>> 2. LEAK CHECK (Valgrind) <<<"
 	@valgrind -q --leak-check=full --error-exitcode=1 --errors-for-leak-kinds=definite ./$(TEST_TARGET) --short
 	@echo "No memory leaks."
-
 	@echo "\n>>> 3. SMOKE TEST <<<"
 	@timeout 1s ./$(TARGET) > /dev/null 2>&1; \
 	RET=$$?; \
@@ -66,7 +64,6 @@ test: install_deps_test $(TEST_TARGET)
 	else \
 		echo "Smoke test FAILED (Code: $$RET)"; exit 1; \
 	fi
-
 	@echo "\n>>> 4. COVERAGE REPORT <<<"
 	@if [ -x "$$(command -v lcov)" ]; then \
 		lcov --capture --directory . --output-file coverage.info --quiet 2>/dev/null; \
