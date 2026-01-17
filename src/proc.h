@@ -18,7 +18,6 @@ typedef struct {
     char user[32];              /**< Name of the user who owns the process */
     long memory;                /**< Resident Set Size (RSS) memory usage in Kilobytes */
     float cpu_usage;            /**< CPU usage percentage (0.0 to 100.0 * cores) */
-    unsigned long long temp_cpu_ticks; /**< Internal field for CPU calculation (previous tick count) */
 } proc_info_t;
 
 /**

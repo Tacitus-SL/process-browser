@@ -1,2 +1,18 @@
-.idea
-cmake-build-debug
+# Build artifacts
+*.o
+*.d
+pb
+run_tests
+
+# Coverage files
+*.gcno
+*.gcda
+*.gcov
+coverage.info
+coverage_report/
+
+# Editor files
+*.swp
+*~
+.vscode/
+.idea/
