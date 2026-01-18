@@ -141,21 +141,25 @@ int main() {
 		case 'p':
 			current_sort = SORT_PID;
 			selected = 0;
+			scroll_offset = 0;
 			break;
 
 		case 'n':
 			current_sort = SORT_NAME;
 			selected = 0;
+			scroll_offset = 0;
 			break;
 
 		case 'm':
 			current_sort = SORT_MEM;
 			selected = 0;
+			scroll_offset = 0;
 			break;
 
 		case 'c':
 			current_sort = SORT_CPU;
 			selected = 0;
+			scroll_offset = 0;
 			break;
 
 		/* Navigation */
